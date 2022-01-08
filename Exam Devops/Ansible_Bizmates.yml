@@ -1,0 +1,20 @@
+---
+- name: Configure Instances for Bizmates PH
+  hosts: bizmates_webservers
+  user: ec2-user
+  sudo: yes
+  tasks:
+    - name: update machine with latest packages
+      action: command yum -y update
+    - name: install php
+      action: yum pkg=php state=latest
+    - name: install php-mysql
+      action: yum pkg=php-mysql state=latest
+    - name: install nginx
+      action: yum pkg=nginx state=latest
+    - name: ensure nginx is running
+      action: service name=nginx state=started
+    - name: install mysql server
+      action: yum pkg=mysql-server state=latest
+    - name: make sure mysql is running
+      action: service name=mysqld state=started
